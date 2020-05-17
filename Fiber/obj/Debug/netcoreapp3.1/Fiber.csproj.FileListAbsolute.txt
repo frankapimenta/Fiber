@@ -1,0 +1,9 @@
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.csproj.CoreCompileInputs.cache
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.AssemblyInfoInputs.cache
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.AssemblyInfo.cs
+C:\Users\Frank\source\repos\Fiber\Fiber\bin\Debug\netcoreapp3.1\Fiber.deps.json
+C:\Users\Frank\source\repos\Fiber\Fiber\bin\Debug\netcoreapp3.1\Fiber.dll
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.csprojAssemblyReference.cache
+C:\Users\Frank\source\repos\Fiber\Fiber\bin\Debug\netcoreapp3.1\Fiber.pdb
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.dll
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.pdb

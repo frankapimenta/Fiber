@@ -1,0 +1,2 @@
+﻿1. Transform everything in tasks
+2. Develop and Enable Tests
