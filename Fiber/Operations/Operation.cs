@@ -29,12 +29,12 @@ namespace Fiber.Operations
 		{
 			IEnumerable<V> context = new V() as IEnumerable<V>;
 			IOperationContext<V> operationContext = new OperationContext<V>(context);
-			
+			// TODO move request to context
 			IOperationData<T> requestOperationData = new OperationData<T>(model);
-			IOperationRequest<T> operationRequest = new OperationRequest<T>(request, requestOperationData);
+			IOperationRequest<T> operationRequest = new OperationRequest<T>(requestOperationData);
 			
 			IOperationData<U> responseOperationData = new OperationData<U>(new U());
-			IOperationResponse<U> operationResponse = new OperationResponse<U>(null, responseOperationData);
+			IOperationResponse<U> operationResponse = new OperationResponse<U>(responseOperationData);
 			
 			IOperationAction<T, U, V> operationAction = new OperationAction<T, U, V>(operationRequest, operationResponse, operationContext);
 

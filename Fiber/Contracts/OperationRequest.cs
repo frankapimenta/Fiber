@@ -6,13 +6,11 @@ namespace Fiber.Contracts
 {
 	public class OperationRequest<T> : IOperationRequest<T> where T : class, new()
 	{
-		private readonly T operationRequest;
 		private readonly IOperationData<T> operationData;
 
 		public OperationRequest() { }
-		public OperationRequest(T operationRequest = null, IOperationData<T> operationData = null)
+		public OperationRequest( IOperationData<T> operationData = null)
 		{
-			this.operationRequest = operationRequest;
 			this.operationData = operationData;
 		}
 
@@ -33,8 +31,8 @@ namespace Fiber.Contracts
 
 		public IRequest<T> Request()
 		{
-			return this.operationRequest as IRequest<T>;
-		}
+			return this.OpRequest() as IRequest<T>;
+		}  
 
 		public bool Valid()
 		{
