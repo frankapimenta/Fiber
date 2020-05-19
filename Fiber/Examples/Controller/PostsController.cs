@@ -26,7 +26,7 @@ namespace Fiber.Examples.Controllers
 			IOperation<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>> operation =
 				new Operation<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>>(logger);
 
-			operation = operation.Make<PostCreateOperationProtocol<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>>>(null, post); // should pass http request
+			operation = operation.Make<PostCreateOperationProtocol<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>>>(post); // should pass http request
 			
 			IOperationAction<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>> action = operation.Execute();
 			

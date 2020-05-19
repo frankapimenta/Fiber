@@ -25,7 +25,7 @@ namespace Fiber.Operations
 			return this.protocol.Call(this);//TODO pass the logger to call or self
 		}
 
-		public virtual IOperation<T, U, V> Make<ProtocolClass>(T request, T model) where ProtocolClass : class, new() 
+		public virtual IOperation<T, U, V> Make<ProtocolClass>(T model) where ProtocolClass : class, new() 
 		{
 			IEnumerable<V> context = new V() as IEnumerable<V>;
 			IOperationContext<V> operationContext = new OperationContext<V>(context);
