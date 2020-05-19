@@ -6,7 +6,6 @@ using Fiber.Protocols;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Fiber.Operations
 {
@@ -38,12 +37,16 @@ namespace Fiber.Operations
 			
 			IOperationAction<T, U, V> operationAction = new OperationAction<T, U, V>(operationRequest, operationResponse, operationContext);
 
-			var protocol = 
-				Activator.CreateInstance(typeof(ProtocolClass), new object[] { logger, operationAction });
+			var protocol = CreateProtocolInstance<ProtocolClass>(logger, operationAction);
 
 			this.protocol = protocol as OperationProtocol<T, U, V>;
 
 			return this;
+		}
+
+		private object CreateProtocolInstance<ProtocolClass>(ILogger logger, IOperationAction<T,U,V> operationAction)
+		{
+			return Activator.CreateInstance(typeof(ProtocolClass), new object[] { logger, operationAction });
 		}
 
 	}
