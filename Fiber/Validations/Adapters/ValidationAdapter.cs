@@ -2,19 +2,19 @@
 
 namespace Fiber.Validations.Adapters
 {
-    public class ValidationAdapter<T> : IValidation<T>
+    public class ValidationAdapter<T> : IValidation<T> // TODO enable getting model to get errors for invalid responses
     {
-        private readonly IValidation<T> model;
-        public ValidationAdapter(IValidation<T> model)
+        public ValidationAdapter(T model)
         {
-            this.model = model;
+            this.Model = model;
         }
 
-        public IValidation<T> Model => this.model;
+        public T Model { get; }
 
         public virtual bool Valid()
         {
-            return this.model.Valid();
+            return ((IValidation<T>)this.Model).Valid();
         }
+
     }
 }

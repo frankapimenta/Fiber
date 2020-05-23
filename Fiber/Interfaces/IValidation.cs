@@ -1,11 +1,12 @@
-﻿namespace Fiber.Interfaces
+﻿using System.Collections;
+using System.Xml.Serialization;
+
+namespace Fiber.Interfaces
 {
     public interface IValidation<T>
     {
-        public IValidation<T> Model { get; }
-        public virtual bool Valid()
-        {
-            return Model.Valid();
-        }
+        public T Model { get;  }
+        public bool Valid();
+
     }
 }
