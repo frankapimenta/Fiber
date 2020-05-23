@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Fiber.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Fiber.Errors
 {
-    public struct Error
+    public struct Error : IError
     {
         public string Title;
         public string Message;
