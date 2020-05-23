@@ -1,5 +1,7 @@
-﻿using Fiber.Interfaces;
+﻿using Fiber.Errors;
+using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
+using Fiber.Validations.Responses;
 using System;
 
 namespace Fiber.Contracts
