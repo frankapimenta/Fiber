@@ -19,16 +19,16 @@ namespace Fiber.Examples.Controllers
 		{
 			this.logger = logger;
 		}
-		public async Task<IResponse<PostOperationModel>> Create([FromBody] PostCreateOperationModel post) //PostOperationCreateData
+		public async Task<IResponse<PostOperationModel>> Create([FromBody] PostCreateOperationDTO post) //PostOperationCreateData
 		{
 			await Task.Yield();
 
-			IOperation<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>> operation =
-				new Operation<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>>(logger);
+			IOperation<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>> operation =
+				new Operation<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>>(logger);
 
-			operation = operation.Make<PostCreateOperationProtocol<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>>>(post); // should pass http request
+			operation = operation.Make<PostCreateOperationProtocol<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>>>(post); // should pass http request
 			
-			IOperationAction<PostCreateOperationModel, PostOperationModel, Dictionary<string, object>> action = operation.Execute();
+			IOperationAction<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>> action = operation.Execute();
 			
 			if (action.Response().Valid())
 			{
