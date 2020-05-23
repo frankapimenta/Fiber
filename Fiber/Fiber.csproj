@@ -2,9 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Frank Pimenta</Authors>
+    <Description>A miniframework for .NET CORE.
+This mini framework can be used with MVC or WEB API frameworks.</Description>
+    <RepositoryUrl>https://github.com/frankapimenta/Fiber</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>miniframework .NETCore</PackageTags>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.4" />
