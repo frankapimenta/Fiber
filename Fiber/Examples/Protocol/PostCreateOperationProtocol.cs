@@ -8,7 +8,6 @@ using Fiber.Validations.Responses;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 
 namespace Fiber.Examples.Protocol
 {

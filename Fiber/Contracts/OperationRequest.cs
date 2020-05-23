@@ -1,5 +1,4 @@
-﻿using System;
-using Fiber.Interfaces;
+﻿using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 
 namespace Fiber.Contracts

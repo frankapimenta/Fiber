@@ -1,6 +1,5 @@
 ﻿using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
-using System;
 
 namespace Fiber.Contracts
 {

@@ -3,7 +3,6 @@ using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 using Fiber.Interfaces.Protocols;
 using Fiber.Operations;
-using Fiber.Validations.Adapters;
 using Fiber.Validations.Responses;
 using Microsoft.Extensions.Logging;
 using System;
