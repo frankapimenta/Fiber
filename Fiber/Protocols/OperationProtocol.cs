@@ -1,8 +1,12 @@
-﻿using Fiber.Interfaces;
+﻿using Fiber.Errors;
+using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 using Fiber.Interfaces.Protocols;
 using Fiber.Operations;
+using Fiber.Validations.Adapters;
+using Fiber.Validations.Responses;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Fiber.Protocols
 {
@@ -18,10 +22,33 @@ namespace Fiber.Protocols
 		}
 		public abstract IOperationAction<T, U, V> Call(Operation<T, U, V> operation);
 
+		public virtual IInvalidResponse<Error> CreateInvalidResponse(IOperationAction<T, U, V> action)
+		{
+			InvalidResponse<Error> invalidResponse = new InvalidResponse<Error>();
+
+			return invalidResponse;
+		}
+
 		public abstract void Enrich(IRequest<T> request);
+
+		public abstract void Finalize(IOperationAction<T, U, V> operationAction);
 
 		public abstract void Prepare(IOperationAction<T, U, V> operationAction);
 
 		public abstract void Strip(IResponse<U> response);
+
+		public virtual bool Validate<ValidationAdapterClass>(IOperationAction<T, U, V> operationAction)
+		{
+			IValidation<T> model = operationAction.OperationRequest().OpData().Valid() as IValidation<T>;
+
+			var validationAdapter = CreateAdapterInstance<ValidationAdapterClass>(model) as IValidation<T>;
+
+			return validationAdapter.Valid();
+		}
+		protected virtual object CreateAdapterInstance<ValidationAdapterClass>(IValidation<T> model)
+		{
+			return Activator.CreateInstance(typeof(ValidationAdapterClass), new object[] { model });
+		}
+
 	}
 }

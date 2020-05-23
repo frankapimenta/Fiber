@@ -1,9 +1,14 @@
-﻿using Fiber.Interfaces;
+﻿using Fiber.Errors;
+using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 using Fiber.Operations;
 using Fiber.Protocols;
+using Fiber.Validations.Adapters;
+using Fiber.Validations.Responses;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Fiber.Examples.Protocol
 {
@@ -24,10 +29,25 @@ namespace Fiber.Examples.Protocol
             Prepare(action);
             
             Enrich(action.OperationRequest());
-            // ....
+            
+            // .... call to services
+
+            if (!Validate<ValidationAdapter<T>>(action))
+            {
+                // get model errors - Model.Errors
+                var errors = new List<Error>();
+                IInvalidResponse<Error> invalidResponse = new InvalidResponse<Error>(errors);
+                // create new action with new invalid response
+            } else
+            {
+                // return action with correct response
+                // do valid response interfaces
+            }
+
             Strip(action.OperationResponse());
 
             logger.LogDebug("end executing Call");
+            
             return this.action;
         }
 
@@ -39,12 +59,18 @@ namespace Fiber.Examples.Protocol
             throw new NotImplementedException();
         }
 
+        public override void Finalize(IOperationAction<T, U, V> operationAction)
+        {
+            logger.LogDebug("begin executing Finalize");
+
+            logger.LogDebug("end executing Finalize");
+        }
+
         public override void Prepare(IOperationAction<T, U, V> operationAction)
         {
             logger.LogDebug("begin executing Prepare");
 
             logger.LogDebug("end executing Prepare");
-            throw new NotImplementedException();
         }
 
         public override void Strip(IResponse<U> response)
@@ -52,7 +78,6 @@ namespace Fiber.Examples.Protocol
             logger.LogDebug("begin executing Strip");
 
             logger.LogDebug("end executing Strip");
-            throw new NotImplementedException();
         }
 
     }
