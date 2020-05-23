@@ -8,7 +8,6 @@ namespace Fiber.Contracts
 	{
 		protected readonly T operationData;
 
-
 		public OperationData(T operationData)
 		{
 			this.operationData = operationData;
