@@ -3,6 +3,7 @@ using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 using Fiber.Interfaces.Protocols;
 using Fiber.Operations;
+using Fiber.Validations.Adapters;
 using Fiber.Validations.Responses;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,7 +21,34 @@ namespace Fiber.Protocols
 			this.logger = logger;
 			this.action = action;
 		}
-		public abstract IOperationAction<T, U, V> Call(Operation<T, U, V> operation);
+		public IOperationAction<T, U, V> Call(Operation<T, U, V> operation)
+		{
+			logger.LogDebug("begin executing Call");
+
+			Prepare(action);
+
+			Enrich(action.OperationRequest());
+
+			Perform(action);
+
+			if (!Validate<ValidationAdapter<T>>(action))
+			{
+				CreateInvalidResponse(action);
+
+			}
+			else
+			{
+				return action;
+			}
+
+			Strip(action.OperationResponse());
+
+			Finalize(action);
+
+			logger.LogDebug("end executing Call");
+
+			return this.action;
+		}
 
 		public abstract IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action);
 
@@ -47,6 +75,13 @@ namespace Fiber.Protocols
 			return Activator.CreateInstance(typeof(ValidationAdapterClass), new object[] { model });
 		}
 
-		public abstract IOperationAction<T, U, V> AddInvalidResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse);
+		public IOperationAction<T, U, V> AddInvalidResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse)
+		{
+			action.OperationResponse().SetInvalidResponse(invalidResponse);
+
+			return action;
+		}
+
+		public abstract IOperationAction<T, U, V> Perform(IOperationAction<T, U, V> operationAction);
 	}
 }

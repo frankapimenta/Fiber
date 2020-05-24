@@ -22,39 +22,11 @@ namespace Fiber.Examples.Protocol
 
         }
 
-        public override IOperationAction<T, U, V> AddInvalidResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse)
+        public override IOperationAction<T, U, V> Perform(IOperationAction<T, U, V> operationAction)
         {
-            action.OperationResponse().SetInvalidResponse(invalidResponse);
-            
             return action;
         }
 
-        public override IOperationAction<T, U, V> Call(Operation<T,U,V> operation)
-        {
-            logger.LogDebug("begin executing Call");
-
-            Prepare(action);
-            
-            Enrich(action.OperationRequest());
-            
-            // .... call to services
-
-            if (!Validate<ValidationAdapter<T>>(action))
-            {
-                CreateInvalidResponse(action);
-
-            } else
-            {
-                // return action with correct response
-                // do valid response interfaces
-            }
-
-            Strip(action.OperationResponse());
-
-            logger.LogDebug("end executing Call");
-            
-            return this.action;
-        }
 
         public override IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action)
         {
