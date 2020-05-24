@@ -1,13 +1,18 @@
-﻿using Fiber.Examples.Data;
+﻿/*using Fiber.Errors;
+using Fiber.Examples.Data;
 using Fiber.Examples.Data.Model;
 using Fiber.Examples.Protocol;
 using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 using Fiber.Operations;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace Fiber.Examples.Controllers
@@ -19,7 +24,11 @@ namespace Fiber.Examples.Controllers
 		{
 			this.logger = logger;
 		}
-		public async Task<IResponse<PostOperationModel>> Create([FromBody] PostCreateOperationDTO post) //PostOperationCreateData
+
+		[Consumes(MediaTypeNames.Application.Json)]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		public async Task<IActionResult> Create([FromBody] PostCreateOperationDTO post) //PostOperationCreateData
 		{
 			await Task.Yield();
 
@@ -32,14 +41,12 @@ namespace Fiber.Examples.Controllers
 			
 			if (action.Response().Valid())
 			{
-				//return Ok(Response);
-				return action.Response();
+				return Ok(action.OperationResponse());
 			}
 			else {
-				//return BadResponse(response);
-				return action.Response();
+				return BadRequestResult(action.OperationResponse().InvalidResponse());
 			}
 		}
 	}
 
-}
+}*/
