@@ -9,9 +9,9 @@ namespace Fiber.Interfaces.Operations
 
 		public IOperationResponse<T> OpResponse();
 
-		public virtual InvalidResponse<Error> InvalidResponse()
-		{
-			return new InvalidResponse<Error>();
-		}
+		public IInvalidResponse<IError> InvalidResponse();
+
+		public IInvalidResponse<IError> SetInvalidResponse(IInvalidResponse<IError> invalidResponse);
+
 	}
 }

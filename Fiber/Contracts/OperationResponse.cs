@@ -1,11 +1,14 @@
-﻿using Fiber.Interfaces;
+﻿using Fiber.Errors;
+using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
+using Fiber.Validations.Responses;
 
 namespace Fiber.Contracts
 {
 	public class OperationResponse<T> : IOperationResponse<T> where T : class, new()
 	{
 		private readonly IOperationData<T> operationData;
+		private IInvalidResponse<IError> invalidResponse;
 
 		public OperationResponse() { }
 		public OperationResponse(IOperationData<T> operationData = null)
@@ -16,6 +19,11 @@ namespace Fiber.Contracts
 		public T Data()
 		{
 			return this.operationData.Data();
+		}
+
+		public IInvalidResponse<IError> InvalidResponse()
+		{
+			return invalidResponse;
 		}
 
 		public IOperationData<T> OpData()
@@ -33,9 +41,17 @@ namespace Fiber.Contracts
 			return this.OpResponse() as IResponse<T>;
 		}
 
+		public IInvalidResponse<IError> SetInvalidResponse(IInvalidResponse<IError> invalidResponse)
+		{
+			this.invalidResponse = invalidResponse;
+			
+			return invalidResponse;
+		}
+
 		public bool Valid()
 		{
 			return this.operationData.Valid();
 		}
+
 	}
 }
