@@ -21,7 +21,7 @@ namespace Fiber.Protocols
 			this.logger = logger;
 			this.action = action;
 		}
-		public IOperationAction<T, U, V> Call(Operation<T, U, V> operation)
+		public virtual IOperationAction<T, U, V> Call(Operation<T, U, V> operation)
 		{
 			logger.LogDebug("begin executing Call");
 

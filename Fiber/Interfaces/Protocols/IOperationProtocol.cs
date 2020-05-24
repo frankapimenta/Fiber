@@ -8,7 +8,7 @@ namespace Fiber.Interfaces.Protocols
 	{
 		public IOperationAction<T, U, V> Perform(IOperationAction<T, U, V> operationAction);
 		public IOperationAction<T, U, V> Call(Operation<T, U, V> operation);
-		public abstract void Prepare(IOperationAction<T, U, V> operationAction);
-		public abstract void Finalize(IOperationAction<T, U, V> operationAction);
+		public void Prepare(IOperationAction<T, U, V> operationAction);
+		public void Finalize(IOperationAction<T, U, V> operationAction);
 	}
 }
