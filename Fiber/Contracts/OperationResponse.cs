@@ -21,6 +21,11 @@ namespace Fiber.Contracts
 			return this.operationData.Data();
 		}
 
+		public string DataAsJson()
+		{
+			return this.operationData.DataAsJson();
+		}
+
 		public IInvalidResponse<IError> InvalidResponse()
 		{
 			return invalidResponse;
