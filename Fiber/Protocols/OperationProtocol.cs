@@ -34,7 +34,6 @@ namespace Fiber.Protocols
 			if (!Validate<ValidationAdapter<T>>(action))
 			{
 				CreateInvalidResponse(action);
-
 			}
 			else
 			{
