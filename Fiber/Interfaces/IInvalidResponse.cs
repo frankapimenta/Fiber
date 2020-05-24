@@ -12,7 +12,5 @@ namespace Fiber.Interfaces
 
         public List<IError> Errors();
 
-        public string DataAsJsonString();
-        
     }
 }
