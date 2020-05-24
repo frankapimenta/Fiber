@@ -1,5 +1,6 @@
 ﻿using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
+using Newtonsoft.Json;
 
 namespace Fiber.Contracts
 {
@@ -15,6 +16,11 @@ namespace Fiber.Contracts
 		public T Data()
 		{
 			return this.operationData;
+		}
+
+		public string DataAsJson()
+		{
+			return JsonConvert.SerializeObject(this.Data());
 		}
 
 		public IOperationData<T> OpData()

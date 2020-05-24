@@ -4,6 +4,8 @@
 	{
 		public T Data();
 
+		public string DataAsJson();
+
 		public bool Valid(); // as authenticated
 
 	}
