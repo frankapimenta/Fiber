@@ -7,6 +7,6 @@ namespace Fiber.Interfaces.Protocols
     {
         public bool Validate<ValidationAdapterClass>(IOperationAction<T, U, V> operationAction);
         public IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action);
-        public IOperationAction<T, U, V> AddResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse);
+        public IOperationAction<T, U, V> AddInvalidResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse);
     }
 }

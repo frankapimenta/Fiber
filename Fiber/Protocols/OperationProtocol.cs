@@ -47,6 +47,6 @@ namespace Fiber.Protocols
 			return Activator.CreateInstance(typeof(ValidationAdapterClass), new object[] { model });
 		}
 
-		public abstract IOperationAction<T, U, V> AddResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse);
+		public abstract IOperationAction<T, U, V> AddInvalidResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse);
 	}
 }
