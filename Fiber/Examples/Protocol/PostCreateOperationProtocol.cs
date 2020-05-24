@@ -32,6 +32,7 @@ namespace Fiber.Examples.Protocol
         {
             // get model errors - ModelDTO.Errors
             var errors = new List<IError>();
+            // Add errors
             IInvalidResponse<IError> invalidResponse = new InvalidResponse<IError>(errors);
             // create new action with new invalid response
             return AddInvalidResponseToAction(action, invalidResponse); ;
