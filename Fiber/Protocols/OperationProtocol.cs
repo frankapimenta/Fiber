@@ -9,7 +9,8 @@ using System;
 
 namespace Fiber.Protocols
 {
-	public abstract class OperationProtocol<T, U, V> : IOperationProtocol<T, U, V>  where T : class, new() where U : class, new() where V : class, new()
+	public abstract class OperationProtocol<T, U, V> : 
+		IOperationProtocol<T, U, V> , IOperationProtocolUtils<T, U,V> where T : class, new() where U : class, new() where V : class, new()
 	{
 		protected ILogger logger;
 		protected IOperationAction<T, U, V> action;
@@ -21,12 +22,7 @@ namespace Fiber.Protocols
 		}
 		public abstract IOperationAction<T, U, V> Call(Operation<T, U, V> operation);
 
-		public virtual IInvalidResponse<Error> CreateInvalidResponse(IOperationAction<T, U, V> action)
-		{
-			InvalidResponse<Error> invalidResponse = new InvalidResponse<Error>();
-
-			return invalidResponse;
-		}
+		public abstract IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action);
 
 		public abstract void Enrich(IRequest<T> request);
 
@@ -44,10 +40,13 @@ namespace Fiber.Protocols
 
 			return validationAdapter.Valid();
 		}
+
+
 		protected virtual object CreateAdapterInstance<ValidationAdapterClass>(IValidation<T> model)
 		{
 			return Activator.CreateInstance(typeof(ValidationAdapterClass), new object[] { model });
 		}
 
+		public abstract IOperationAction<T, U, V> AddResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse);
 	}
 }
