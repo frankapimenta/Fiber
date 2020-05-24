@@ -17,9 +17,11 @@ namespace Fiber.Examples.Controllers
 	class PostsController : Controller
 	{
 		private readonly ILogger logger;
-		PostsController(ILogger<PostsController> logger)
+		private readonly IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation;
+		PostsController(ILogger<PostsController> logger, IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation)
 		{
 			this.logger = logger;
+			this.operation = operation;
 		}
 
 		[System.Web.Http.HttpPost]
@@ -30,13 +32,15 @@ namespace Fiber.Examples.Controllers
 		{
 			await Task.Yield();
 
-			IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation =
+			/*IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation =
 				new Operation<PostCreateDTO, PostModelDTO, Dictionary<string, object>>(logger);
 
-			operation = operation.Make<PostCreateOperationProtocol<PostCreateDTO, PostModelDTO, Dictionary<string, object>>>(post); // should pass http request
+			operation =*/
+			operation.Make<PostCreateOperationProtocol<PostCreateDTO, PostModelDTO, Dictionary<string, object>>>(post); // should pass http request
 			
 			IOperationAction<PostCreateDTO, PostModelDTO, Dictionary<string, object>> action = operation.Execute();
 			
+			// TODO PUT THIS IN A operation.Return() method
 			if (action.Response().Valid())
 			{
 				return action.OperationResponse().DataAsJsonString();
