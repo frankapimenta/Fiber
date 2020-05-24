@@ -1,5 +1,4 @@
-﻿/*using Fiber.Errors;
-using Fiber.Examples.Data;
+﻿using Fiber.Examples.Data;
 using Fiber.Examples.Data.Model;
 using Fiber.Examples.Protocol;
 using Fiber.Interfaces;
@@ -11,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace Fiber.Examples.Controllers
@@ -25,28 +22,29 @@ namespace Fiber.Examples.Controllers
 			this.logger = logger;
 		}
 
+		[System.Web.Http.HttpPost]
 		[Consumes(MediaTypeNames.Application.Json)]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<IActionResult> Create([FromBody] PostCreateOperationDTO post) //PostOperationCreateData
+		public async Task<ActionResult<string>> Create([Microsoft.AspNetCore.Mvc.FromBody] PostCreateDTO post) //PostOperationCreateData
 		{
 			await Task.Yield();
 
-			IOperation<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>> operation =
-				new Operation<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>>(logger);
+			IOperation<PostCreateDTO, PostModel, Dictionary<string, object>> operation =
+				new Operation<PostCreateDTO, PostModel, Dictionary<string, object>>(logger);
 
-			operation = operation.Make<PostCreateOperationProtocol<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>>>(post); // should pass http request
+			operation = operation.Make<PostCreateOperationProtocol<PostCreateDTO, PostModel, Dictionary<string, object>>>(post); // should pass http request
 			
-			IOperationAction<PostCreateOperationDTO, PostOperationModel, Dictionary<string, object>> action = operation.Execute();
+			IOperationAction<PostCreateDTO, PostModel, Dictionary<string, object>> action = operation.Execute();
 			
 			if (action.Response().Valid())
 			{
-				return Ok(action.OperationResponse());
+				return action.OperationResponse().DataAsJson();
 			}
 			else {
-				return BadRequestResult(action.OperationResponse().InvalidResponse());
+				return action.OperationResponse().InvalidResponse().DataAsJson(); // PostModelDTO should be created where it wrapes model and errors
 			}
 		}
 	}
 
-}*/
+}
