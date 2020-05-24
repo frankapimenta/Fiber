@@ -61,7 +61,7 @@ namespace Fiber.Validations.Responses
             return this as IResponse<List<IError>>;
         }
 
-        public string DataAsJson()
+        public string DataAsJsonString()
         {
             return JsonConvert.SerializeObject(this.errors);
         }

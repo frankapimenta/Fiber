@@ -39,10 +39,10 @@ namespace Fiber.Examples.Controllers
 			
 			if (action.Response().Valid())
 			{
-				return action.OperationResponse().DataAsJson();
+				return action.OperationResponse().DataAsJsonString();
 			}
 			else {
-				return action.OperationResponse().InvalidResponse().DataAsJson(); // PostModelDTO should be created where it wrapes model and errors
+				return action.OperationResponse().InvalidResponse().DataAsJsonString(); // PostModelDTO should be created where it wrapes model and errors
 			}
 		}
 	}

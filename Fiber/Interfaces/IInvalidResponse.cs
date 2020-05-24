@@ -10,7 +10,7 @@ namespace Fiber.Interfaces
 
         public IError AddError(string title, string message);
 
-        public string DataAsJson();
+        public string DataAsJsonString();
         
     }
 }
