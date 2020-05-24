@@ -21,4 +21,8 @@ This mini framework can be used with MVC or WEB API frameworks.</Description>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Examples\Data\Model\" />
+  </ItemGroup>
+
 </Project>
