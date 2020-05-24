@@ -8,5 +8,5 @@ C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.dll
 C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.pdb
 C:\Users\Frank\source\repos\Fiber\Fiber\bin\Debug\netcoreapp3.1\Fiber.runtimeconfig.json
 C:\Users\Frank\source\repos\Fiber\Fiber\bin\Debug\netcoreapp3.1\Fiber.runtimeconfig.dev.json
-C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.csproj.CoreCompileInputs.cache
 C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.genruntimeconfig.cache
+C:\Users\Frank\source\repos\Fiber\Fiber\obj\Debug\netcoreapp3.1\Fiber.csproj.CoreCompileInputs.cache
