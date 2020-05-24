@@ -1,6 +1,6 @@
 ﻿namespace Fiber.Examples.Data.Model
 {
-    public class PostOperationModel
+    public class PostModel
     {
 
     }

@@ -2,7 +2,7 @@
 
 namespace Fiber.Examples.Data
 {
-    public class PostCreateOperationDTO
+    public class PostCreateDTO
     {
         [Required]
         public string Title { get; set; }
