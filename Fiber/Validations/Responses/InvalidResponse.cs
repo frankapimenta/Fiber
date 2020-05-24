@@ -5,28 +5,28 @@ using System.Collections.Generic;
 
 namespace Fiber.Validations.Responses
 {
-    public class InvalidResponse<TErrorType> : IInvalidResponse<TErrorType> where TErrorType : struct
+    public class InvalidResponse<IError> : IInvalidResponse<IError>
     {
-        protected readonly List<TErrorType> errors;
+        protected readonly List<IError> errors;
 
         public InvalidResponse()
         {
-            this.errors = new List<TErrorType>();
+            this.errors = new List<IError>();
             this.errors.Add(DefaultError);
         }
 
-        public InvalidResponse(List<TErrorType> errors)
+        public InvalidResponse(List<IError> errors)
         {
             this.errors = errors;
         }
 
-        public TErrorType AddError(string title, string message)
+        public IError AddError(string title, string message)
         {
             object error = CreateErrorInstance(title, message);
 
-            this.errors.Add((TErrorType) error);
+            this.errors.Add((IError) error);
 
-            return (TErrorType) error;
+            return (IError) error;
         }
 
         public bool Invalid()
@@ -39,7 +39,7 @@ namespace Fiber.Validations.Responses
             this.errors.Clear();
         }
 
-        public List<TErrorType> Data()
+        public List<IError> Data()
         {
             return this.errors;
         }
@@ -49,16 +49,16 @@ namespace Fiber.Validations.Responses
             return !this.Invalid();
         }
 
-        private TErrorType DefaultError => (TErrorType) CreateErrorInstance("Undefined Error", "Error not defined. Please contact API admin.");
+        private IError DefaultError => (IError) CreateErrorInstance("Undefined Error", "Error not defined. Please contact API admin.");
 
-        private TErrorType CreateErrorInstance(string title, string message)
+        private IError CreateErrorInstance(string title, string message)
         {
-            return (TErrorType)Activator.CreateInstance(typeof(TErrorType), new object[] { title, message });
+            return (IError)Activator.CreateInstance(typeof(IError), new object[] { title, message });
         }
 
-        IResponse<List<TErrorType>> IResponse<List<TErrorType>>.Response()
+        IResponse<List<IError>> IResponse<List<IError>>.Response()
         {
-            return this as IResponse<List<TErrorType>>;
+            return this as IResponse<List<IError>>;
         }
 
         public string DataAsJson()

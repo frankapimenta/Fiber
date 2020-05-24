@@ -2,13 +2,13 @@
 
 namespace Fiber.Interfaces
 {
-    public interface IInvalidResponse<T> : IResponse<List<T>>
+    public interface IInvalidResponse<IError> : IResponse<List<IError>>
     {
         public bool Invalid();
 
         public void Clear();
 
-        public T AddError(string title, string message);
+        public IError AddError(string title, string message);
 
         public string DataAsJson();
         
