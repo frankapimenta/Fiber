@@ -28,6 +28,13 @@ namespace Fiber.Validations.Responses
 
             return (IError) error;
         }
+        
+        public IError AddError(IError error)
+        {
+            this.errors.Add(error);
+
+            return error;
+        }
 
         public bool Invalid()
         {

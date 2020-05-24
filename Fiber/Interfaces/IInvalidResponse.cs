@@ -10,6 +10,8 @@ namespace Fiber.Interfaces
 
         public IError AddError(string title, string message);
 
+        public IError AddError(IError error);
+
         public List<IError> Errors();
 
     }
