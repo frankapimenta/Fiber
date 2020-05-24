@@ -58,7 +58,7 @@ namespace Fiber.Examples.Protocol
 
         public override IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action)
         {
-            // get model errors - Model.Errors
+            // get model errors - ModelDTO.Errors
             var errors = new List<IError>();
             IInvalidResponse<IError> invalidResponse = new InvalidResponse<IError>(errors);
             // create new action with new invalid response

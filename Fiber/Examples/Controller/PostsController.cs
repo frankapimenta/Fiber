@@ -1,5 +1,5 @@
 ﻿using Fiber.Examples.Data;
-using Fiber.Examples.Data.Model;
+using Fiber.Examples.Data.ModelDTO;
 using Fiber.Examples.Protocol;
 using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
@@ -30,12 +30,12 @@ namespace Fiber.Examples.Controllers
 		{
 			await Task.Yield();
 
-			IOperation<PostCreateDTO, PostModel, Dictionary<string, object>> operation =
-				new Operation<PostCreateDTO, PostModel, Dictionary<string, object>>(logger);
+			IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation =
+				new Operation<PostCreateDTO, PostModelDTO, Dictionary<string, object>>(logger);
 
-			operation = operation.Make<PostCreateOperationProtocol<PostCreateDTO, PostModel, Dictionary<string, object>>>(post); // should pass http request
+			operation = operation.Make<PostCreateOperationProtocol<PostCreateDTO, PostModelDTO, Dictionary<string, object>>>(post); // should pass http request
 			
-			IOperationAction<PostCreateDTO, PostModel, Dictionary<string, object>> action = operation.Execute();
+			IOperationAction<PostCreateDTO, PostModelDTO, Dictionary<string, object>> action = operation.Execute();
 			
 			if (action.Response().Valid())
 			{
