@@ -65,5 +65,10 @@ namespace Fiber.Validations.Responses
         {
             return JsonConvert.SerializeObject(this.errors);
         }
+
+        public List<IError> Errors()
+        {
+            return Data();
+        }
     }
 }
