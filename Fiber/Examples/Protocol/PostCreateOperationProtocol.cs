@@ -1,4 +1,5 @@
-﻿using Fiber.Errors;
+﻿using Fiber.Contracts;
+using Fiber.Errors;
 using Fiber.Interfaces;
 using Fiber.Interfaces.Operations;
 using Fiber.Operations;
@@ -21,6 +22,13 @@ namespace Fiber.Examples.Protocol
 
         }
 
+        public override IOperationAction<T, U, V> AddInvalidResponseToAction(IOperationAction<T, U, V> operationAction, IInvalidResponse<IError> invalidResponse)
+        {
+            action.OperationResponse().SetInvalidResponse(invalidResponse);
+            
+            return action;
+        }
+
         public override IOperationAction<T, U, V> Call(Operation<T,U,V> operation)
         {
             logger.LogDebug("begin executing Call");
@@ -33,10 +41,8 @@ namespace Fiber.Examples.Protocol
 
             if (!Validate<ValidationAdapter<T>>(action))
             {
-                // get model errors - Model.Errors
-                var errors = new List<Error>();
-                IInvalidResponse<Error> invalidResponse = new InvalidResponse<Error>(errors);
-                // create new action with new invalid response
+                CreateInvalidResponse(action);
+
             } else
             {
                 // return action with correct response
@@ -48,6 +54,15 @@ namespace Fiber.Examples.Protocol
             logger.LogDebug("end executing Call");
             
             return this.action;
+        }
+
+        public override IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action)
+        {
+            // get model errors - Model.Errors
+            var errors = new List<IError>();
+            IInvalidResponse<IError> invalidResponse = new InvalidResponse<IError>(errors);
+            // create new action with new invalid response
+            return AddInvalidResponseToAction(action, invalidResponse); ;
         }
 
         public override void Enrich(IRequest<T> request)
