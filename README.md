@@ -53,59 +53,55 @@ The protocol is based on Tin, Tout and context objects wraped within an action s
 
 ```csharp
 public class PostCreateOperationProtocol<T, U, V> : OperationProtocol<T, U, V> where T : class, new() where U : class, new() where V : class, new()
-    {
-        public PostCreateOperationProtocol()  { }
+{
+    public PostCreateOperationProtocol()  { }
         
-        // can inject as many services as wanted
-        public PostCreateOperationProtocol(/* ICoreApiClient client, */ ILogger logger, IOperationAction<T, U, V> action) : base(logger, action)
-        {
+    // can inject as many services as wanted
+    public PostCreateOperationProtocol(/* ICoreApiClient client, */ ILogger logger, IOperationAction<T, U, V> action) : base(logger, action)
+    {
 
-        }
+    }
 
-        public override IOperationAction<T, U, V> Perform(IOperationAction<T, U, V> operationAction)
-        {
-            return action;
-        }
+    public override IOperationAction<T, U, V> Perform(IOperationAction<T, U, V> operationAction)
+    {
+	    return action;
+    }
 
+    public override IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action)
+    {
+        // get model errors - ModelDTO.Errors
+        var errors = new List<IError>();
+        IInvalidResponse<IError> invalidResponse = new InvalidResponse<IError>(errors);
+        // create new action with new invalid response
+        return AddInvalidResponseToAction(action, invalidResponse); ;
+    }
 
-        public override IOperationAction<T, U, V> CreateInvalidResponse(IOperationAction<T, U, V> action)
-        {
-            // get model errors - ModelDTO.Errors
-            var errors = new List<IError>();
-            IInvalidResponse<IError> invalidResponse = new InvalidResponse<IError>(errors);
-            // create new action with new invalid response
-            return AddInvalidResponseToAction(action, invalidResponse); ;
-        }
-
-        public override void Enrich(IRequest<T> request)
-        {
-            logger.LogDebug("begin executing Enrich");
+    public override void Enrich(IRequest<T> request)
+    {
+        logger.LogDebug("begin executing Enrich");
             
-            logger.LogDebug("end executing Enrich");
-            throw new NotImplementedException();
-        }
+        logger.LogDebug("end executing Enrich");
+    }
 
-        public override void Finalize(IOperationAction<T, U, V> operationAction)
-        {
-            logger.LogDebug("begin executing Finalize");
+    public override void Finalize(IOperationAction<T, U, V> operationAction)
+    {
+        logger.LogDebug("begin executing Finalize");
 
-            logger.LogDebug("end executing Finalize");
-        }
+        logger.LogDebug("end executing Finalize");
+    }
 
-        public override void Prepare(IOperationAction<T, U, V> operationAction)
-        {
-            logger.LogDebug("begin executing Prepare");
+    public override void Prepare(IOperationAction<T, U, V> operationAction)
+    {
+        logger.LogDebug("begin executing Prepare");
 
-            logger.LogDebug("end executing Prepare");
-        }
+        logger.LogDebug("end executing Prepare");
+    }
 
-        public override void Strip(IResponse<U> response)
-        {
-            logger.LogDebug("begin executing Strip");
+    public override void Strip(IResponse<U> response)
+    {
+        logger.LogDebug("begin executing Strip");
 
-            logger.LogDebug("end executing Strip");
-        }
-
+        logger.LogDebug("end executing Strip");
     }
 }
 ```
@@ -115,33 +111,32 @@ The developer only has to define those steps (methods) to enable then the execut
 # ProtocolClass#Call();
 
 public IOperationAction<T, U, V> Call(Operation<T, U, V> operation)
-		{
-			logger.LogDebug("begin executing Call");
+{
+    logger.LogDebug("begin executing Call");
 
-			Prepare(action);
+	Prepare(action);
 
-			Enrich(action.OperationRequest());
+	Enrich(action.OperationRequest());
 
-			Perform(action);
+	Perform(action);
 
-			if (!Validate<ValidationAdapter<T>>(action))
-			{
-				CreateInvalidResponse(action);
+	if (!Validate<ValidationAdapter<T>>(action))
+	{
+		CreateInvalidResponse(action);
+	}
+	else
+	{
+		return action;
+	}
 
-			}
-			else
-			{
-				return action;
-			}
+	Strip(action.OperationResponse());
 
-			Strip(action.OperationResponse());
+	Finalize(action);
 
-			Finalize(action);
+	logger.LogDebug("end executing Call");
 
-			logger.LogDebug("end executing Call");
-
-			return this.action;
-		}
+	return this.action;
+}
 ```
 
 
@@ -208,7 +203,7 @@ In order to validate a response (i.e. validate a model) the Fiber provides a sim
     }
     
    public class ValidationAdapter<T> : IValidation<T>
-    {
+   {
         public ValidationAdapter(T model)
         {
             this.Model = model;
@@ -220,7 +215,6 @@ In order to validate a response (i.e. validate a model) the Fiber provides a sim
         {
             return ((IValidation<T>)this.Model).Valid();
         }
-
     }
 }
 ```
@@ -228,32 +222,32 @@ In case of this adapter not being useful to you, you must create yours, inherite
 
 ```csharp
 public IOperationAction<T, U, V> Call(Operation<T, U, V> operation)
-		{
-			logger.LogDebug("begin executing Call");
+{
+    logger.LogDebug("begin executing Call");
 
-			Prepare(action);
+    Prepare(action);
 
-			Enrich(action.OperationRequest());
+    Enrich(action.OperationRequest());
 
-			Perform(action);
+    Perform(action);
 
-			if (!Validate<ValidationAdapter<T>>(action))
-			{
-				CreateInvalidResponse(action);
-			}
-			else
-			{
-				return action;
-			}
+    if (!Validate<ValidationAdapter<T>>(action))
+    {
+        CreateInvalidResponse(action);
+    }
+    else
+    {
+        return action;
+    }
 
-			Strip(action.OperationResponse());
+    Strip(action.OperationResponse());
 
-			Finalize(action);
+    Finalize(action);
 
-			logger.LogDebug("end executing Call");
+    logger.LogDebug("end executing Call");
 
-			return this.action;
-		}
+    return this.action;
+}
 ```
 
 Check *OperationProtocol.cs* file for further details.
