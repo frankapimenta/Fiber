@@ -195,26 +195,25 @@ An operation action has three components. A request, the request made by the cal
 In order to validate a response (i.e. validate a model) the Fiber provides a simple implementation of an Adapter.
 
 ```csharp
-  public interface IValidation<T>
-    {
-        public T Model { get;  }
-        public bool Valid();
+public interface IValidation<T>
+{
+    public T Model { get;  }
+    public bool Valid();
 
-    }
+}
     
-   public class ValidationAdapter<T> : IValidation<T>
-   {
-        public ValidationAdapter(T model)
-        {
-            this.Model = model;
-        }
+public class ValidationAdapter<T> : IValidation<T>
+{
+    public ValidationAdapter(T model)
+    {
+        this.Model = model;
+    }
 
-        public T Model { get; }
+    public T Model { get; }
 
-        public virtual bool Valid()
-        {
-            return ((IValidation<T>)this.Model).Valid();
-        }
+    public virtual bool Valid()
+    {
+        return ((IValidation<T>)this.Model).Valid();
     }
 }
 ```
@@ -263,7 +262,7 @@ You can use the given *Error* class for that or create your own and then use the
 ```csharp
 public IError AddError(string title, string message)
 {
-	object error = CreateErrorInstance(title, message);
+    object error = CreateErrorInstance(title, message);
 
     this.errors.Add((IError) error);
 
