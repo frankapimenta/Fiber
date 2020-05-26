@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Frank Pimenta</Authors>
     <Description>A miniframework for .NET CORE.
 This mini framework can be used with MVC or WEB API frameworks.</Description>
