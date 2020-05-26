@@ -1,4 +1,5 @@
 ﻿using Fiber.Interfaces.Operations;
+using System;
 
 namespace Fiber.Interfaces
 {
@@ -6,5 +7,7 @@ namespace Fiber.Interfaces
 	{
 		public abstract IOperation<T, U, V> Make<ProtocolClass>(T model) where ProtocolClass : class, new();
 		public IOperationAction<T, U, V> Execute();
+
+		public string Return(IOperationAction<T,U,V> action);
 	}
 }

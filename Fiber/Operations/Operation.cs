@@ -44,6 +44,18 @@ namespace Fiber.Operations
 			return this;
 		}
 
+		public virtual string Return(IOperationAction<T, U, V> operationAction)
+		{
+			if (operationAction.Response().Valid())
+			{
+				return operationAction.OperationResponse().DataAsJsonString();
+			}
+			else
+			{
+				return operationAction.OperationResponse().InvalidResponse().DataAsJsonString(); // PostModelDTO should be created where it wrapes model and errors
+			}
+		}
+
 		private object CreateProtocolInstance<ProtocolClass>(ILogger logger, IOperationAction<T,U,V> operationAction)
 		{
 			return Activator.CreateInstance(typeof(ProtocolClass), new object[] { logger, operationAction });
