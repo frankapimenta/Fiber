@@ -216,6 +216,7 @@ public class ValidationAdapter<T> : IValidation<T>
         return ((IValidation<T>)this.Model).Valid();
     }
 }
+
 ```
 In case of this adapter not being useful to you, you must create yours, inherited from *ValidationAdapter* class and then override the method **OperationProtocol#Call** in your Protocol implementation.
 
