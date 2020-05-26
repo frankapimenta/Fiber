@@ -18,6 +18,12 @@ namespace Fiber.Examples.Controllers
 	{
 		private readonly ILogger logger;
 		private readonly IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation;
+		
+		PostsController(ILogger<PostsController> logger)
+		{
+			this.logger = logger;
+		}
+		
 		PostsController(ILogger<PostsController> logger, IOperation<PostCreateDTO, PostModelDTO, Dictionary<string, object>> operation)
 		{
 			this.logger = logger;
@@ -40,14 +46,7 @@ namespace Fiber.Examples.Controllers
 			
 			IOperationAction<PostCreateDTO, PostModelDTO, Dictionary<string, object>> action = operation.Execute();
 			
-			// TODO PUT THIS IN A operation.Return() method
-			if (action.Response().Valid())
-			{
-				return action.OperationResponse().DataAsJsonString();
-			}
-			else {
-				return action.OperationResponse().InvalidResponse().DataAsJsonString(); // PostModelDTO should be created where it wrapes model and errors
-			}
+			return operation.Return(action);
 		}
 	}
 
