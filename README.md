@@ -1,5 +1,10 @@
-
+﻿
 # FIBER
+
+# WARNING
+
+This is a POC project. Do not use it in production. IT IS NOT READY YET.
+
 # Author
 
 I developed this framework in order to provide a convention framework for the development of API with .NET Core.
