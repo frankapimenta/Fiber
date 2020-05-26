@@ -10,7 +10,7 @@ This mini framework can be used with MVC or WEB API frameworks.</Description>
     <RepositoryType>git</RepositoryType>
     <PackageTags>miniframework .NETCore</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
